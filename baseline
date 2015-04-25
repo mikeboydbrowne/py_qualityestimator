@@ -16,9 +16,7 @@ target = [s.strip().split() for s in open(opts.target_train).readlines()]
 features = [s.strip().split() for s in open(opts.feature_train).readlines()]
 
 # Set the weights
-weights = {}
-for i, f in enumerate(features):
-    weights[i] = 1
+weights = [-36.1626420002, 32.3411091485, -22.8844199911, -0.780823214279, -3.54684938387, 434.175272959, -0.32826144677, 29.665752701, -903.79978526, -932.860816371, -100.443049107, -60.9834977433, -523.098896931, 212.194435001, 651.582758173, -15.4074694839, -18.4943192255]
 
 def get_avg_score(score_list):
     feature_score = {}
@@ -27,7 +25,7 @@ def get_avg_score(score_list):
         feature = features[index]
         total = 0
         for w, f in enumerate(feature):
-            total += float(f) * weights[w]
+            total += float(f) * float(weights[w])
         feature_score[i] = total
     return sum(feature_score.values()) / float(len(feature_score))
 

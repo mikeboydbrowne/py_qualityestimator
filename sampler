@@ -1,0 +1,24 @@
+#!/usr/bin/env python
+import optparse
+import sys
+from collections import defaultdict
+
+optparser = optparse.OptionParser()
+optparser.add_option("-c", "--score", dest="score_train", default="data-train/es-en_score.train", help="Score train set")
+optparser.add_option("-s", "--source", dest="source_train", default="data-train/es-en_source.train", help="Scourse train set")
+optparser.add_option("-t", "--target", dest="target_train", default="data-train/es-en_target.train", help="Target train set")
+optparser.add_option("-f", "--features", dest="feature_train", default="data-train/train_features", help="Feature train set")
+(opts, _) = optparser.parse_args()
+
+score = [s.strip() for s in open(opts.score_train).readlines()]
+source = [s.strip() for s in open(opts.source_train).readlines()]
+target = [s.strip().split() for s in open(opts.target_train).readlines()]
+features = [s.strip().split() for s in open(opts.feature_train).readlines()]
+
+for i, w in enumerate(features):
+  # for j in w:
+  #   print j
+  weight = 1000.0 * float(score[i])
+  first_output_x = str([float(j) for j in w]) + "; " + str(weight)
+  sys.stdout.write("%s\n" % first_output_x)
+
